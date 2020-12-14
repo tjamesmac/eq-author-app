@@ -18,6 +18,9 @@ import QuestionnaireDesignPage from "./QuestionnaireDesignPage";
 import NotFoundPage from "./NotFoundPage";
 import ErrorBoundary from "./ErrorBoundary";
 // import { MeProvider } from "./MeContext";
+import { test } from "./index.ts";
+
+console.log(test, "what in the heck");
 
 export const Routes = ({ ...otherProps }) => {
   return (
