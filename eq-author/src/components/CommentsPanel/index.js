@@ -6,7 +6,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import styled from "styled-components";
 import CustomPropTypes from "custom-prop-types";
 import PropTypes from "prop-types";
-import { withMe } from "App/MeContext";
+// import { withMe } from "App/MeContext";
 import TextArea from "react-textarea-autosize";
 
 import COMMENT_QUERY from "./commentsQuery.graphql";
@@ -33,7 +33,7 @@ import IconEdit from "./icon-edit.svg";
 
 export const Reply = styled.div`
   padding-top: 0.5em;
-  padding-left: ${props => (props.indent ? "1em" : "0")};
+  padding-left: ${(props) => (props.indent ? "1em" : "0")};
 `;
 
 export const SaveButton = styled(Button)`
@@ -94,7 +94,7 @@ export const AvatarOuter = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.avatarColor ? colors.primary : colors.grey};
   text-align: center;
 `;
@@ -127,7 +127,7 @@ export const DateWrapper = styled.div`
 export const DeleteComment = styled(DeleteButton)`
   color: ${colors.grey};
   font-size: 2.2em;
-  display: ${props => (props.isHidden ? "none" : "block")};
+  display: ${(props) => (props.isHidden ? "none" : "block")};
 `;
 
 export const CommentAddSection = styled.div`
@@ -156,7 +156,7 @@ export const EditButton = styled.button`
   background: url(${IconEdit}) no-repeat center center;
   height: 25px;
   width: 25px;
-  display: ${props => (props.isHidden ? "none" : "block")};
+  display: ${(props) => (props.isHidden ? "none" : "block")};
   &:hover {
     filter: invert(100%) brightness(0.6);
   }
@@ -267,7 +267,7 @@ const CommentsPanel = ({ componentId, me: { id: myId } }) => {
     setActiveReplyId("");
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     createComment({
       variables: {
@@ -282,7 +282,7 @@ const CommentsPanel = ({ componentId, me: { id: myId } }) => {
     setActiveReplyId("");
   };
 
-  const handleDelete = event => {
+  const handleDelete = (event) => {
     const commentId = event.id;
     if (commentId && myId === event.user.id) {
       deleteComment({
@@ -298,7 +298,7 @@ const CommentsPanel = ({ componentId, me: { id: myId } }) => {
     setActiveReplyId("");
   };
 
-  const handleSaveEdit = event => {
+  const handleSaveEdit = (event) => {
     const commentId = event.id;
     if (editComment) {
       updateComment({
@@ -315,11 +315,11 @@ const CommentsPanel = ({ componentId, me: { id: myId } }) => {
     }
   };
 
-  const handleReply = id => {
+  const handleReply = (id) => {
     setActiveReplyId(id);
   };
 
-  const handleSaveReply = event => {
+  const handleSaveReply = (event) => {
     const commentId = event.id;
     createReply({
       variables: {
@@ -352,7 +352,7 @@ const CommentsPanel = ({ componentId, me: { id: myId } }) => {
     setActiveReplyId("");
   };
 
-  const handleEditReply = repliesItem => {
+  const handleEditReply = (repliesItem) => {
     setActiveReplyId(repliesItem.id);
     setEditReply(repliesItem.commentText);
     setActiveCommentId("");
@@ -377,13 +377,10 @@ const CommentsPanel = ({ componentId, me: { id: myId } }) => {
     }
   };
 
-  const getInitials = name => {
+  const getInitials = (name) => {
     if (name !== null) {
       const initials = name.replace(/[^a-zA-Z- ]/g, "").match(/\b\w/g);
-      return initials
-        .join("")
-        .substring(0, 3)
-        .toUpperCase();
+      return initials.join("").substring(0, 3).toUpperCase();
     }
   };
 
@@ -420,7 +417,7 @@ const CommentsPanel = ({ componentId, me: { id: myId } }) => {
     });
 
     const repliesCount = displayReplies.length.toString();
-    const setScroll = tag => {
+    const setScroll = (tag) => {
       if (index === comments.length - 1) {
         setScrollRef(tag);
       }
@@ -469,4 +466,5 @@ CommentsPanel.propTypes = {
   me: CustomPropTypes.me.isRequired,
 };
 
-export default withMe(withRouter(CommentsPanel));
+// export default withMe(withRouter(CommentsPanel));
+export default withRouter(CommentsPanel);

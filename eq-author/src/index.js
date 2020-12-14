@@ -74,9 +74,9 @@ const wsLink = new WebSocketLink({
   uri: wsUri,
   options: {
     reconnect: true,
-    connectionParams: () => ({
-      headers: getHeaders({}),
-    }),
+    // connectionParams: () => ({
+    //   // headers: getHeaders({}),
+    // }),
   },
 });
 
@@ -93,15 +93,15 @@ const networkLink = split(
   httpLink
 );
 
-const headersLink = setContext((_, { headers }) =>
-  getHeaders(headers).then(headers => ({
-    headers,
-  }))
-);
+// const headersLink = setContext((_, { headers }) =>
+//   getHeaders(headers).then((headers) => ({
+//     headers,
+//   }))
+// );
 
 const link = ApolloLink.from([
   createErrorLink(getStore),
-  headersLink,
+  // headersLink,
   networkLink,
 ]);
 

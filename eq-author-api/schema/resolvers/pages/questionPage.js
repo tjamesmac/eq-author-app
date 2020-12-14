@@ -33,7 +33,7 @@ Resolvers.QuestionPage = {
     const section = getSectionByPageId(ctx, id);
     return findIndex(section.pages, { id });
   },
-  displayName: page => getName(page, "QuestionPage"),
+  displayName: (page) => getName(page, "QuestionPage"),
   availablePipingAnswers: ({ id }, args, ctx) =>
     getPreviousAnswersForPage(ctx.questionnaire, id),
   availablePipingMetadata: (page, args, ctx) => ctx.questionnaire.metadata,
@@ -45,16 +45,16 @@ Resolvers.QuestionPage = {
       ROUTING_ANSWER_TYPES
     ),
   availableRoutingDestinations: ({ id }, args, ctx) => {
-    const section = find(ctx.questionnaire.sections, section => {
+    const section = find(ctx.questionnaire.sections, (section) => {
       if (section.pages && some(section.pages, { id })) {
         return section;
       }
     });
 
-    const pages = takeRightWhile(section.pages, page => page.id !== id);
+    const pages = takeRightWhile(section.pages, (page) => page.id !== id);
     const sections = takeRightWhile(
       ctx.questionnaire.sections,
-      futureSection => futureSection.id !== section.id
+      (futureSection) => futureSection.id !== section.id
     );
 
     const logicalDestinations = [
@@ -72,23 +72,23 @@ Resolvers.QuestionPage = {
       pages,
     };
   },
-  validationErrorInfo: ({ id }, args, ctx) => {
-    const pageErrors = ctx.validationErrorInfo.filter(
-      ({ pageId, type }) => id === pageId && !type.startsWith("confirmation")
-    );
-    //remove qcode errors from total here - important as Qcode errors don't count to total
-    // otherwise error totals get confusing for users!!!!!!
+  // validationErrorInfo: ({ id }, args, ctx) => {
+  //   const pageErrors = ctx.validationErrorInfo.filter(
+  //     ({ pageId, type }) => id === pageId && !type.startsWith("confirmation")
+  //   );
+  //   //remove qcode errors from total here - important as Qcode errors don't count to total
+  //   // otherwise error totals get confusing for users!!!!!!
 
-    const answerErrorsQCode = pageErrors.filter(
-      ({ field }) => field === "qCode" || field === "secondaryQCode"
-    );
+  //   const answerErrorsQCode = pageErrors.filter(
+  //     ({ field }) => field === "qCode" || field === "secondaryQCode"
+  //   );
 
-    return {
-      id,
-      errors: pageErrors,
-      totalCount: pageErrors.length - answerErrorsQCode.length,
-    };
-  },
+  //   return {
+  //     id,
+  //     errors: pageErrors,
+  //     totalCount: pageErrors.length - answerErrorsQCode.length,
+  //   };
+  // },
 };
 
 Resolvers.Mutation = {

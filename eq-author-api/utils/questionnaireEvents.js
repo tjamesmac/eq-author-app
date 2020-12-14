@@ -6,7 +6,7 @@ const surveyDetails = (details, bodyText) => {
   const surveyId = `Survey ID - ${wrapper("span", details[0].surveyId)}`;
   const wrappedId = wrapper("li", surveyId);
 
-  const formTypes = details.map(item => item.formType);
+  const formTypes = details.map((item) => item.formType);
   const joined = formTypes.join(", ");
   const wrappedFormType = wrapper("span", joined);
 
@@ -24,11 +24,11 @@ const surveyDetails = (details, bodyText) => {
   return detailsAndText;
 };
 
-const questionnaireCreationEvent = (questionnaire, ctx) => ({
+const questionnaireCreationEvent = (questionnaire) => ({
   id: uuidv4(),
   publishStatus: "Questionnaire created",
   questionnaireTitle: `${questionnaire.title} (Version ${questionnaire.surveyVersion})`,
-  userId: ctx.user.id,
+  // userId: ctx.user.id,
   type: "system",
   time: questionnaire.createdAt,
 });
@@ -39,7 +39,7 @@ const noteCreationEvent = (ctx, bodyText) => ({
   questionnaireTitle: `${ctx.questionnaire.title} (Version ${ctx.questionnaire.surveyVersion})`,
   bodyText,
   type: "note",
-  userId: ctx.user.id,
+  // userId: ctx.user.id,
   time: new Date(),
 });
 
@@ -50,7 +50,7 @@ const publishStatusEvent = (ctx, bodyText) => {
     publishStatus: ctx.questionnaire.publishStatus,
     questionnaireTitle: `${ctx.questionnaire.title} (Version ${ctx.questionnaire.surveyVersion})`,
     type: "system",
-    userId: ctx.user.id,
+    // userId: ctx.user.id,
     time: new Date(),
   };
   if (publishDetails) {

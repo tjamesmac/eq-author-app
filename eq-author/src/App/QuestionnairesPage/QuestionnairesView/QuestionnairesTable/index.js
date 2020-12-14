@@ -65,10 +65,10 @@ QuestionnairesTable.fragments = {
       createdAt
       updatedAt
       createdBy {
-        id
+        # id
         name
-        email
-        displayName
+        # email
+        # displayName
       }
       permission
       publishStatus

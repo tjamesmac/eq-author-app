@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 import CustomPropTypes from "custom-prop-types";
 import styled from "styled-components";
 
-import { withMe } from "App/MeContext";
+// import { withMe } from "App/MeContext";
 
 import Tooltip from "components/Forms/Tooltip";
 import { colors } from "constants/theme";
@@ -56,10 +56,8 @@ export const NavLogoutButton = styled(Button)`
   text-align: centre;
 `;
 
-const UserProfile = ({ me, nav, signOut }) => {
-  if (!me) {
-    return null;
-  }
+// const UserProfile = ({ me, nav, signOut }) => {
+const UserProfile = ({ nav, signOut }) => {
   return (
     <Tooltip content="Sign Out">
       <>
@@ -85,12 +83,12 @@ const UserProfile = ({ me, nav, signOut }) => {
             variant="tertiary-light"
             small
           >
-            <UserAvatar
+            {/* <UserAvatar
               src={me.picture || guestAvatar}
               alt=""
               role="presentation"
-            />
-            <UserName data-test="username">{me.displayName}</UserName>
+            /> */}
+            {/* <UserName data-test="username">{me.displayName}</UserName> */}
           </LogoutButton>
         )}
       </>
@@ -108,4 +106,4 @@ UserProfile.propTypes = {
   nav: PropTypes.bool,
 };
 
-export default flowRight(withApollo, withMe, withRouter)(UserProfile);
+export default flowRight(withApollo, withRouter)(UserProfile);

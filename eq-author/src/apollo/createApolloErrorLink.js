@@ -6,7 +6,7 @@ import {
 import { onError } from "apollo-link-error";
 import { apiDownError } from "redux/saving/actions";
 
-import auth from "components/Auth";
+// import auth from "components/Auth";
 
 export const errorHandler = (getStore, error) => {
   const { networkError, graphQLErrors } = error;
@@ -20,7 +20,7 @@ export const errorHandler = (getStore, error) => {
     switch (httpStatusCode) {
       // 401 - User does not exist
       case 401:
-        auth.signOut();
+        // auth.signOut();
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         break;
@@ -32,11 +32,12 @@ export const errorHandler = (getStore, error) => {
     }
   }
   if (graphQLErrors) {
-    graphQLErrors.forEach(error => {
+    graphQLErrors.forEach((error) => {
       setSentryTag("graphQLError");
       sendSentryError(error);
     });
   }
 };
 
-export default getStore => onError(errors => errorHandler(getStore, errors));
+export default (getStore) =>
+  onError((errors) => errorHandler(getStore, errors));

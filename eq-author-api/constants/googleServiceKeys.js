@@ -6,15 +6,15 @@ module.exports.VERIFY_PUBLIC_KEYS_URL =
 const JwtAlgorithms = ["RS256"];
 const JwtTokenIssUrl = "https://securetoken.google.com";
 
-if (!process.env.FIREBASE_PROJECT_ID) {
-  logger.fatal(
-    {
-      file: __filename,
-    },
-    "FIREBASE_PROJECT_ID env variable needs to be set for firebase token verification"
-  );
-  process.exit(1);
-}
+// if (!process.env.FIREBASE_PROJECT_ID) {
+//   logger.fatal(
+//     {
+//       file: __filename,
+//     },
+//     "FIREBASE_PROJECT_ID env variable needs to be set for firebase token verification"
+//   );
+//   process.exit(1);
+// }
 
 module.exports.VERIFY_VALIDITY_OPTIONS = {
   algorithms: JwtAlgorithms,

@@ -6,7 +6,7 @@ import { Route, Redirect } from "react-router-dom";
 import Loading from "components/Loading";
 import Layout from "components/Layout";
 
-import { withMe } from "App/MeContext";
+// import { withMe } from "App/MeContext";
 
 const createRedirect = ({ location }) => ({
   pathname: "/sign-in",
@@ -25,9 +25,9 @@ const PrivateRoute = React.memo(
         </Layout>
       );
     } else if (me) {
-      render = props => <Component {...props} />;
+      render = (props) => <Component {...props} />;
     } else {
-      render = props => <Redirect to={createRedirect(props)} />;
+      render = (props) => <Redirect to={createRedirect(props)} />;
     }
 
     return <Route {...rest} render={render} />;
@@ -40,4 +40,4 @@ PrivateRoute.propTypes = {
   me: CustomPropTypes.user,
 };
 
-export default withMe(PrivateRoute);
+export default PrivateRoute;

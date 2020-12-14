@@ -13,8 +13,8 @@ const loadQuestionnaire = require("./middleware/loadQuestionnaire");
 const runQuestionnaireMigrations = require("./middleware/runQuestionnaireMigrations");
 const exportQuestionnaire = require("./middleware/export");
 const importQuestionnaire = require("./middleware/import");
-const identificationMiddleware = require("./middleware/identification");
-const getUserFromHeaderBuilder = require("./middleware/identification/getUserFromHeader");
+// const identificationMiddleware = require("./middleware/identification");
+// const getUserFromHeaderBuilder = require("./middleware/identification/getUserFromHeader");
 const upsertUser = require("./middleware/identification/upsertUser");
 const rejectUnidentifiedUsers = require("./middleware/identification/rejectUnidentifiedUsers");
 const validateQuestionnaire = require("./middleware/validateQuestionnaire");
@@ -46,7 +46,7 @@ const createApp = () => {
     const whitelist = process.env.CORS_WHITELIST.split(",");
 
     const corsOptions = {
-      origin: function(origin, callback) {
+      origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1 || !origin) {
           callback(null, true);
         } else {
@@ -96,14 +96,14 @@ const createApp = () => {
       },
     }),
     pino,
-    identificationMiddleware(logger),
-    rejectUnidentifiedUsers,
+    // identificationMiddleware(logger),
+    // rejectUnidentifiedUsers,
     loadQuestionnaire,
-    runQuestionnaireMigrations(logger)(require("./migrations")),
-    validateQuestionnaire
+    runQuestionnaireMigrations(logger)(require("./migrations"))
+    // validateQuestionnaire
   );
 
-  const getUserFromHeader = getUserFromHeaderBuilder(logger);
+  // const getUserFromHeader = getUserFromHeaderBuilder(logger);
   const server = new ApolloServer({
     ...schema,
     context: (...args) => {
@@ -114,18 +114,18 @@ const createApp = () => {
       }
       return {
         questionnaire: req.questionnaire,
-        user: req.user,
-        validationErrorInfo: req.validationErrorInfo,
+        // user: req.user,
+        // validationErrorInfo: req.validationErrorInfo,
       };
     },
     subscriptions: {
-      onConnect: async (params, _, ctx) => {
-        const user = await getUserFromHeader(params.authorization);
-        ctx.user = user;
-        return {
-          user,
-        };
-      },
+      // onConnect: async (params, _, ctx) => {
+      //   const user = await getUserFromHeader(params.authorization);
+      //   ctx.user = user;
+      //   return {
+      //     user,
+      //   };
+      // },
     },
     extensions,
   });
@@ -140,17 +140,19 @@ const createApp = () => {
 
   app.get("/export/:questionnaireId", exportQuestionnaire);
   if (process.env.ENABLE_IMPORT === "true") {
-    app
-      .use(bodyParser.json({ limit: "10mb", extended: true }))
-      .post(
-        "/import",
-        identificationMiddleware(logger),
-        rejectUnidentifiedUsers,
-        importQuestionnaire
-      );
+    app.use(bodyParser.json({ limit: "10mb", extended: true })).post(
+      "/import",
+      // identificationMiddleware(logger),
+      rejectUnidentifiedUsers,
+      importQuestionnaire
+    );
   }
 
-  app.post("/signIn", identificationMiddleware(logger), upsertUser);
+  app.post(
+    "/signIn",
+    // identificationMiddleware(logger),
+    upsertUser
+  );
 
   const httpServer = http.createServer(app);
   server.installSubscriptionHandlers(httpServer);

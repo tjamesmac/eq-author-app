@@ -4,7 +4,7 @@ import { withRouter, Redirect } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 import CustomPropTypes from "custom-prop-types";
 
-import { useMe } from "App/MeContext";
+// import { useMe } from "App/MeContext";
 import { useQuestionnaire } from "components/QuestionnaireContext";
 
 import { colors } from "constants/theme";
@@ -45,10 +45,10 @@ const Separator = styled.hr`
 const ReviewPage = ({ match, history }) => {
   const [reviewQuestionnaire] = useMutation(reviewQuestionnaireMutation);
   const questionnaireId = match.params.questionnaireId;
-  const { me } = useMe();
+  // const { me } = useMe();
   const { questionnaire } = useQuestionnaire();
 
-  const sendReview = review =>
+  const sendReview = (review) =>
     reviewQuestionnaire({
       variables: {
         input: {
@@ -60,7 +60,8 @@ const ReviewPage = ({ match, history }) => {
     });
 
   const publishStatus = questionnaire && questionnaire.publishStatus;
-  if (!me.admin || publishStatus !== AWAITING_APPROVAL) {
+  if (publishStatus !== AWAITING_APPROVAL) {
+    // if (!me.admin || publishStatus !== AWAITING_APPROVAL) {
     return <Redirect to={`/q/${match.params.questionnaireId}`} />;
   }
 

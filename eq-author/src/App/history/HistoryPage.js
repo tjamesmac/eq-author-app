@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { useMe } from "App/MeContext";
+// import { useMe } from "App/MeContext";
 import CustomPropTypes from "custom-prop-types";
 
 import { colors } from "constants/theme";
@@ -65,7 +65,7 @@ const HistoryPageContent = ({ match }) => {
     variables: { input: { questionnaireId } },
     fetchPolicy: "network-only",
   });
-  const { me } = useMe();
+  // const { me } = useMe();
   const [addNote] = useMutation(createNoteMutation, {
     update(cache, { data: { createHistoryNote } }) {
       cache.writeQuery({
@@ -165,7 +165,7 @@ const HistoryPageContent = ({ match }) => {
                     },
                   })
                 }
-                handleDeleteNote={itemId =>
+                handleDeleteNote={(itemId) =>
                   deleteNote({
                     variables: {
                       input: {
@@ -177,7 +177,7 @@ const HistoryPageContent = ({ match }) => {
                 }
                 questionnaireTitle={questionnaireTitle}
                 publishStatus={publishStatus}
-                currentUser={me}
+                // currentUser={me}
                 userName={user.displayName}
                 userId={user.id}
                 bodyText={bodyText}

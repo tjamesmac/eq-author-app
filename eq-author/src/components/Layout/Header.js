@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import CustomPropTypes from "custom-prop-types";
 import { colors } from "constants/theme";
 
-import { withMe } from "App/MeContext";
+// import { withMe } from "App/MeContext";
 
 import UserProfile from "components/UserProfile";
 import Truncated from "components/Truncated";
@@ -52,7 +52,7 @@ const UserProfileWrapper = styled("div")`
   justify-content: flex-end;
 `;
 
-const Header = ({ title, me }) => (
+const Header = ({ title }) => (
   <StyledHeader>
     <Column cols={3}>
       <Logo />
@@ -65,11 +65,11 @@ const Header = ({ title, me }) => (
     </Column>
 
     <Column cols={3}>
-      {me && (
+      {/* {me && (
         <UserProfileWrapper>
           <StyledUserProfile currentUser={me} />
         </UserProfileWrapper>
-      )}
+      )} */}
     </Column>
   </StyledHeader>
 );
@@ -79,4 +79,4 @@ Header.propTypes = {
   me: CustomPropTypes.user,
 };
 
-export default withMe(Header);
+export default Header;

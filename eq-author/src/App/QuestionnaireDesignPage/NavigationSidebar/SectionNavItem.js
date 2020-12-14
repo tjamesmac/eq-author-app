@@ -49,7 +49,7 @@ const propTypes = {
   identity: PropTypes.number.isRequired,
 };
 
-export const UnwrappedSectionNavItem = props => {
+export const UnwrappedSectionNavItem = (props) => {
   const {
     questionnaire,
     section,
@@ -70,14 +70,14 @@ export const UnwrappedSectionNavItem = props => {
 
   let questionErrorCount = 0;
 
-  section.pages.map(item => {
-    questionErrorCount =
-      questionErrorCount + item.validationErrorInfo.totalCount;
+  section.pages.map((item) => {
+    questionErrorCount = questionErrorCount;
+    // questionErrorCount + item.validationErrorInfo.totalCount;
     return questionErrorCount;
   });
 
   const SectionTitle = useCallback(
-    isOpen => (
+    (isOpen) => (
       <>
         <StyledSectionUpper>
           <div />
@@ -89,7 +89,7 @@ export const UnwrappedSectionNavItem = props => {
           title={section.displayName}
           icon={SectionIcon}
           id={section.displayName}
-          errorCount={section.validationErrorInfo.totalCount}
+          errorCount={0}
           sectionTotalErrors={questionErrorCount}
           isSection
           isOpen={isOpen}

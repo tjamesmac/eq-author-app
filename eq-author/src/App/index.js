@@ -13,43 +13,42 @@ import Toasts from "components/Toasts";
 import { Routes as RoutePaths } from "utils/UrlUtils";
 
 import QuestionnairesPage from "./QuestionnairesPage";
-import SignInPage from "./SignInPage";
+// import SignInPage from "./SignInPage";
 import QuestionnaireDesignPage from "./QuestionnaireDesignPage";
 import NotFoundPage from "./NotFoundPage";
 import ErrorBoundary from "./ErrorBoundary";
-import { MeProvider } from "./MeContext";
+// import { MeProvider } from "./MeContext";
 
 export const Routes = ({ ...otherProps }) => {
   return (
     <Router {...otherProps}>
-      <MeProvider>
-        <ErrorBoundary>
-          <Toasts>
-            <Switch>
-              <Route path={RoutePaths.SIGN_IN} component={SignInPage} exact />
-              <PrivateRoute
-                path={RoutePaths.HOME}
-                component={QuestionnairesPage}
-                exact
-              />
-              <RedirectRoute
-                from="/questionnaire/:questionnaireId/design/:sectionId/:pageId"
-                to={"/q/:questionnaireId/page/:pageId/design"}
-              />
-              <RedirectRoute
-                from="/questionnaire/:questionnaireId/design/:sectionId"
-                to={"/q/:questionnaireId/section/:sectionId/design"}
-              />
-              <PrivateRoute
-                path={RoutePaths.QUESTIONNAIRE}
-                exact={false}
-                component={QuestionnaireDesignPage}
-              />
-              <Route path="*" component={NotFoundPage} exact />
-            </Switch>
-          </Toasts>
-        </ErrorBoundary>
-      </MeProvider>
+      <ErrorBoundary>
+        <Toasts>
+          <Switch>
+            {/* <Route path={RoutePaths.SIGN_IN} component={SignInPage} exact /> */}
+            <Route
+              path={RoutePaths.HOME}
+              component={QuestionnairesPage}
+              exact
+            />
+            <RedirectRoute
+              from="/questionnaire/:questionnaireId/design/:sectionId/:pageId"
+              to={"/q/:questionnaireId/page/:pageId/design"}
+            />
+            <Route
+              path={RoutePaths.QUESTIONNAIRE}
+              exact={false}
+              component={QuestionnaireDesignPage}
+            />
+            <Route
+              from="/questionnaire/:questionnaireId/design/:sectionId"
+              to={"/q/:questionnaireId/section/:sectionId/design"}
+            />
+
+            <Route path="*" component={NotFoundPage} exact />
+          </Switch>
+        </Toasts>
+      </ErrorBoundary>
     </Router>
   );
 };

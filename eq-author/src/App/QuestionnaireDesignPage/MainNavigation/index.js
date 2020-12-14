@@ -14,7 +14,7 @@ import CustomPropTypes from "custom-prop-types";
 import { colors } from "constants/theme";
 // import { AWAITING_APPROVAL, PUBLISHED } from "constants/publishStatus";
 
-import { useMe } from "App/MeContext";
+// import { useMe } from "App/MeContext";
 
 import ButtonGroup from "components/buttons/ButtonGroup";
 import LinkButton from "components/buttons/Button/LinkButton";
@@ -78,10 +78,10 @@ const SmallBadge = styled.span`
   right: 2px;
 `;
 
-export const UnwrappedMainNavigation = props => {
+export const UnwrappedMainNavigation = (props) => {
   const { questionnaire, title, children, client, match } = props;
 
-  const { me } = useMe();
+  // const { me } = useMe();
   const [isSettingsModalOpen, setSettingsModalOpen] = useState(
     match.params.modifier === "settings"
   );
@@ -92,7 +92,7 @@ export const UnwrappedMainNavigation = props => {
 
   const previewUrl = `${config.REACT_APP_LAUNCH_URL}/${
     (questionnaire || {}).id
-    }`;
+  }`;
 
   return (
     <>
@@ -187,9 +187,11 @@ export const UnwrappedMainNavigation = props => {
                   <IconText nav icon={qcodeIcon}>
                     QCodes
                   </IconText>
-                  {questionnaire.qCodeErrorCount > 0 ? <SmallBadge data-test="small-badge" /> : null}
+                  {questionnaire.qCodeErrorCount > 0 ? (
+                    <SmallBadge data-test="small-badge" />
+                  ) : null}
                 </RouteButton>
-                {me && <UserProfile nav signOut left client={client} />}
+                {/* {me && <UserProfile nav signOut left client={client} />} */}
               </ButtonGroup>
             )}
           </UtilityBtns>
