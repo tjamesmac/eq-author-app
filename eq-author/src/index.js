@@ -15,8 +15,11 @@ import config from "config";
 import getIdForObject from "utils/getIdForObject";
 import render from "utils/render";
 import getHeaders from "middleware/headers";
+import { test } from "./index.ts";
+
 
 import App from "App";
+console.log(test)
 
 if (
   config.REACT_APP_GTM_ID &&
